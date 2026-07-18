@@ -1,0 +1,36 @@
+# Define LUALUAH Font Glyph Classes
+@numbers_standard  = [0 1 2 3 4 5 6 7 8 9];
+@numbers_initial   = [0.init 1.init 2.init 3.init 5.init 6.init 9.init];
+@numbers_internal  = [0.int 1.int 2.int 3.int 4.int 5.int 6.int 7.int 8.int 9.int];
+
+@caps_standard     = [A B C D E F G H I J K L M N O P Q R S T U V W X Y Z];
+@caps_initial      = [A.init B.init C.init D.init E.init L.init O.init R.init];
+@caps_internal     = [A.int B.int C.int D.int E.int L.int O.int R.int];
+
+@lc_standard       = [a b c d e f g h i j k l m n o p q r s t u v w x y z];
+@lc_initial        = [a.init b.init c.init e.init i.init p.init r.init];
+@lc_internal       = [a.int b.int c.int e.int i.int p.int r.int];
+
+feature calt {
+    # 1. Substitute Initial Capitals
+    ignore sub @caps_standard' @caps_standard;
+    sub @caps_standard' by @caps_initial;
+    
+    # 2. Substitute Internal Capitals
+    sub @caps_standard @caps_standard' by @caps_internal;
+    
+    # 3. Substitute Initial Lowercase
+    ignore sub @lc_standard' @lc_standard;
+    sub @lc_standard' by @lc_initial;
+    
+    # 4. Substitute Internal Lowercase
+    sub @lc_standard @lc_standard' by @lc_internal;
+
+    # 5. Substitute Initial Numbers
+    ignore sub @numbers_standard' @numbers_standard;
+    sub @numbers_standard' by @numbers_initial;
+    
+    # 6. Substitute Internal Numbers
+    sub @numbers_standard @numbers_standard' by @numbers_internal;
+    sub @numbers_internal @numbers_standard' by @numbers_internal;
+} calt;
